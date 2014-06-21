@@ -699,7 +699,7 @@ static void report_down(struct data *ts,
 
 	if (raw_tool_type == MXM_TOOL_PEN) {
 		if (ts->pdata->report_pen_as_finger)
-			tool_type = MT_TOOL_FINGER;
+			tool_type = MT_TOOL_PEN;
 		else
 			tool_type = MT_TOOL_PEN;
 	} else {
@@ -733,7 +733,7 @@ static void report_down(struct data *ts,
 		!(ts->list_finger_ids & (1 << id)) ? "DOWN" : "MOVE",
 		valid ? " " : "#",
 		raw_tool_type == MXM_TOOL_FINGER ? "Finger" :
-		raw_tool_type == MXM_TOOL_PEN ? "Stylus" :
+	/* 	raw_tool_type == MXM_TOOL_PEN ? "Stylus" : */
 		raw_tool_type == MXM_TOOL_GLOVE ? "Glove" : "*Unknown*",
 		id, x, y, z, touch_major, touch_minor, orientation);
 }
@@ -756,7 +756,7 @@ static void report_up(struct data *ts, int id,
 	dev_dbg(dev, "event: UP%s%s %u\n",
 		valid ? " " : "#",
 		raw_tool_type == MXM_TOOL_FINGER ? "Finger" :
-		raw_tool_type == MXM_TOOL_PEN ? "Stylus" :
+	/* 	raw_tool_type == MXM_TOOL_PEN ? "Stylus" : */
 		raw_tool_type == MXM_TOOL_GLOVE ? "Glove" : "*Unknown*",
 		id);
 	ts->list_finger_ids &= ~idbit;
@@ -2033,11 +2033,11 @@ static struct max1187x_pdata *max1187x_get_platdata_dt(struct device *dev)
 		dev_warn(dev, "no glove_enabled config\n");
 	}
 
-	/* Parse report_pen_as_finger */
+	/* Parse report_pen_as_finger 
 	if (of_property_read_u32(devnode, "report_pen_as_finger",
 		&pdata->report_pen_as_finger)) {
 		dev_warn(dev, "no report_pen_as_finger config\n");
-	}
+	}*/
 
 	/* Parse wakeup_gesture_support */
 	if (of_property_read_u32(devnode, "wakeup_gesture_support",
